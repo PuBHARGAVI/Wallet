@@ -1,14 +1,10 @@
 package Wallet;
 
 public class Wallet {
-	//private 
-	String currencyType1;
-	//private 
-	double currencyType1Value;
-	//private 
-	String currencyType2;
-	//private 
-	double currencyType2Value;
+	private String currencyType1;
+	private double currencyType1Value;
+	private String currencyType2;
+	private double currencyType2Value;
 
 /*	public Wallet(String currencyType1, double currencyType1Value, String currencyType2, double currencyType2Value) {
 		this.currencyType1 = currencyType1;

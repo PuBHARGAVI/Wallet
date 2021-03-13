@@ -33,4 +33,20 @@ public class WalletTest {
 		assertEquals(expectedValue,actualValue);
 	}
 	
+	@Test
+	public void testFor1XDollarNotEqualTo74_85YRupees() {
+		int dollarFactor=3;
+		int rupeeFactor=4;
+		String currencyType1 = "Rupees";
+		double currencyType1Value = 74.85*rupeeFactor;
+		String currencyType2 = "Dollars";
+		double currencyType2Value = dollarFactor;
+		boolean expectedValue=false;
+		
+		Wallet wallet = new Wallet(currencyType1, currencyType1Value, currencyType2, currencyType2Value);		
+		boolean actualValue = wallet.compareDollarsAndRupees();
+		
+		assertEquals(expectedValue,actualValue);
+	}
+	
 }
