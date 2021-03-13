@@ -28,10 +28,11 @@ public class Wallet {
 
 	public boolean compareDollarsAndRupees() {
 		// TODO Auto-generated method stub
-		
-		return true;
+		if(currencyType1=="Rupees" &&  currencyType2=="Dollars") {
+			if(currencyType1Value/74.85==currencyType2Value) {
+				return true;
+			}
+		}
+		return false;
 	}
-	
-	
-	
 }
