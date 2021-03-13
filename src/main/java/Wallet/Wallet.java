@@ -82,7 +82,7 @@ public class Wallet {
 				checkForNegativeCurrencyValueException();
 			} catch (NegativeCurrencyValueException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				return e.getMessage();
 			}
 		}
 		if(currencyType==currencyType1) {

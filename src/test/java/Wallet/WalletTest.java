@@ -138,7 +138,6 @@ public class WalletTest {
 		Wallet wallet=new Wallet();
 		try {
 			actualExceptionMessage=(String) wallet.depositCurrency(currencyType, currencyValue);
-			System.out.println("exception");
 		} catch (LimitExceededException e) {
 			// TODO Auto-generated catch block
 		}
@@ -147,4 +146,21 @@ public class WalletTest {
 
 	}
 	
+	@Test
+	public void testThrowsExceptionForDepositingCurrencyWhenValueIsNegative() {
+		String currencyType="Dollars";
+		double currencyValue=-2;
+		String expectedExceptionMessage="Currency value cannot be Negative";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			actualExceptionMessage=(String) wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
+
+	}
 }
