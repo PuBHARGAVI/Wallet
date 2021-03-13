@@ -208,5 +208,78 @@ public class WalletTest {
 		
 		assertEquals(expectedValue,actualValue,0.00001);	
 		}
+	@Test
+	public void testThrowsExceptionForWithdrawRupeesWhenValueUnderflows(){
+		String currencyType="Rupees";
+		double currencyValue=200;
+		String expectedExceptionMessage="Less Rupees Balance. Withdraw unsuccessful!";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency(currencyType, 100);
+			wallet.withdrawCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			actualExceptionMessage=e.getMessage().toString();
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);
+	}
+	
+	
+	
+	@Test
+	public void testThrowsExceptionForWithdrawDollarsWhenValueUnderflows(){
+		String currencyType="Dollars";
+		double currencyValue=2;
+		String expectedExceptionMessage="Less Dollars Balance. Withdraw unsuccessful!";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency(currencyType, 1);
+			wallet.withdrawCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			actualExceptionMessage=e.getMessage().toString();
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);
+	}
+	
+	@Test
+	public void testThrowsExceptionForWithdrawCurrencyWhenValueIsZero() {
+		String currencyType="Dollars";
+		double currencyValue=0;
+		String expectedExceptionMessage="Currency value cannot be zero";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			actualExceptionMessage=(String) wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
+	}
+	
+	@Test
+	public void testThrowsExceptionForWithdrawCurrencyWhenValueIsNegative() {
+		String currencyType="Dollars";
+		double currencyValue=-2;
+		String expectedExceptionMessage="Currency value cannot be Negative";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			actualExceptionMessage=(String) wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
+	}
 	
 }

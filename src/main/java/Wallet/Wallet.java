@@ -96,8 +96,28 @@ public class Wallet {
 		return newValue;
 	}
 
-	public double withdrawCurrency(String currencyType, double currencyValue) throws LimitExceededException {
+	public Object withdrawCurrency(String currencyType, double currencyValue) throws LimitExceededException {
 		double newValue=0;
+		if(currencyType==currencyType1 && currencyValue>currencyType1Value)
+			throw new LimitExceededException("Less Rupees Balance. Withdraw unsuccessful!");
+		else if(currencyType==currencyType2 && currencyValue>currencyType2Value)
+			throw new LimitExceededException("Less Dollars Balance. Withdraw unsuccessful!");
+		else if(currencyValue==0) {
+			try {
+				checkForZeroCurrencyValueException();
+			} catch (ZeroCurrencyValueException e) {
+				// TODO Auto-generated catch block
+				return e.getMessage();
+			}
+		}
+		else if(currencyValue<0) {
+			try {
+				checkForNegativeCurrencyValueException();
+			} catch (NegativeCurrencyValueException e) {
+				// TODO Auto-generated catch block
+				return e.getMessage();
+			}
+		}
 		if(currencyType==currencyType1) {
 			currencyType1Value-=currencyValue;
 			newValue=currencyType1Value;
