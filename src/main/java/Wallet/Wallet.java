@@ -129,4 +129,13 @@ public class Wallet {
 		return newValue;
 		
 	}
-}
+
+	public double checkBalanceForPreferredCurrencyType(String currencyType) {
+		if(currencyType=="Rupees") {
+			return currencyType1Value+currencyType2Value*74.85;
+		}
+		else {
+			return currencyType1Value/74.85+currencyType2Value;
+		}
+	}
+	}

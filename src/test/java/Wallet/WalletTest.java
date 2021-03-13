@@ -282,4 +282,41 @@ public class WalletTest {
 		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
 	}
 	
+	@Test
+	public void testToCheckBalanceForPreferredCurrencyTypeRupees(){
+		double rupeesValue=100;
+		double dollarsValue=1;
+		double expectedRupeesValue=174.85;
+	
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency("Rupees", rupeesValue);
+			wallet.depositCurrency("Dollars", dollarsValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		double actualRupeesValue=wallet.checkBalanceForPreferredCurrencyType("Rupees");
+		
+		assertEquals(expectedRupeesValue,actualRupeesValue,0.00001);
+	}
+	
+	@Test
+	public void testToCheckBalanceForPreferredCurrencyTypeDollars(){
+		double rupeesValue=100;
+		double dollarsValue=1;
+		double expectedDollarsValue=2.33600;
+	
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency("Rupees", rupeesValue);
+			wallet.depositCurrency("Dollars", dollarsValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		double actualDollarsValue=wallet.checkBalanceForPreferredCurrencyType("Dollars");
+		
+		assertEquals(expectedDollarsValue,actualDollarsValue,0.00001);
+	}
 }
