@@ -109,4 +109,23 @@ public class WalletTest {
 		
 		assertEquals(expectedExceptionMessage,actualExceptionMessage);
 	}
+	
+	@Test
+	public void testThrowsExceptionForDepositingDollarsWhenOverflows(){
+		String currencyType="Dollars";
+		double currencyValue=Double.MAX_VALUE;
+		String expectedExceptionMessage="Total Dollars balance overflowed. Deposit unsuccessful!";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage()+",");
+			actualExceptionMessage=e.getMessage().toString();
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
+	}
 }

@@ -59,6 +59,8 @@ public class Wallet {
 		if(currencyValue>=Double.MAX_VALUE) {
 			if(currencyType==currencyType1)
 				throw new LimitExceededException("Total Rupees balance overflowed. Deposit unsuccessful!");
+			else if(currencyType==currencyType2)
+				throw new LimitExceededException("Total Dollars balance overflowed. Deposit unsuccessful!");
 		}
 		if(currencyType==currencyType1) {
 			currencyType1Value+=currencyValue;
