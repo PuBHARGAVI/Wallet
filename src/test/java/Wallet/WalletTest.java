@@ -1,6 +1,8 @@
 package Wallet;
 import static org.junit.Assert.assertEquals;
 
+import javax.naming.LimitExceededException;
+
 import org.junit.Test;
 
 import Wallet.Wallet;
@@ -56,8 +58,14 @@ public class WalletTest {
 		
 		Wallet wallet=new Wallet();
 		double currentValue=wallet.getCurrencyType1Value();
-		wallet.depositCurrency(currencyType, currencyValue);
-		double newValue=wallet.getCurrencyType1Value();
+		double newValue=0;
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		newValue=wallet.getCurrencyType1Value();
 		double actualValue=currencyValue+currentValue;
 		double expectedValue=newValue;
 		
@@ -71,11 +79,34 @@ public class WalletTest {
 		
 		Wallet wallet=new Wallet();
 		double currentValue=wallet.getCurrencyType2Value();
-		wallet.depositCurrency(currencyType, currencyValue);
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		double newValue=wallet.getCurrencyType2Value();
 		double actualValue=currencyValue+currentValue;
 		double expectedValue=newValue;
 		
 		assertEquals(expectedValue,actualValue,0.00001);
+	}
+	
+	@Test
+	public void testThrowsExceptionForDepositingRupeesWhenValueOverflows(){
+		String currencyType="Rupees";
+		double currencyValue=Double.MAX_VALUE;
+		String expectedExceptionMessage="Total Rupees balance overflowed. Deposit unsuccessful!";
+		String actualExceptionMessage="";
+		
+		Wallet wallet=new Wallet();
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			actualExceptionMessage=e.getMessage().toString();
+		}
+		
+		assertEquals(expectedExceptionMessage,actualExceptionMessage);
 	}
 }

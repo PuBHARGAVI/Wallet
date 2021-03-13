@@ -1,5 +1,7 @@
 package Wallet;
 
+import javax.naming.LimitExceededException;
+
 public class Wallet {
 	private String currencyType1="Rupees";
 	private double currencyType1Value;
@@ -53,7 +55,11 @@ public class Wallet {
 		return false;
 	}
 	
-	public void depositCurrency(String currencyType,double currencyValue) {
+	public void depositCurrency(String currencyType,double currencyValue) throws LimitExceededException {
+		if(currencyValue>=Double.MAX_VALUE) {
+			if(currencyType==currencyType1)
+				throw new LimitExceededException("Total Rupees balance overflowed. Deposit unsuccessful!");
+		}
 		if(currencyType==currencyType1) {
 			currencyType1Value+=currencyValue;
 		}
