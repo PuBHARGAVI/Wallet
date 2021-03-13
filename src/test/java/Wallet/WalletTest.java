@@ -50,7 +50,7 @@ public class WalletTest {
 	}
 	
 	@Test
-	public void testForDepositRupees(){
+	public void testIsSuccessfulForDepositingRupees(){
 		String currencyType="Rupees";
 		double currencyValue=100;
 		
@@ -58,6 +58,21 @@ public class WalletTest {
 		double currentValue=wallet.getCurrencyType1Value();
 		wallet.depositCurrency(currencyType, currencyValue);
 		double newValue=wallet.getCurrencyType1Value();
+		double actualValue=currencyValue+currentValue;
+		double expectedValue=newValue;
+		
+		assertEquals(expectedValue,actualValue,0.00001);
+	}
+	
+	@Test
+	public void testIsSuccessfulForDepositDollars(){
+		String currencyType="Dollars";
+		double currencyValue=1;
+		
+		Wallet wallet=new Wallet();
+		double currentValue=wallet.getCurrencyType2Value();
+		wallet.depositCurrency(currencyType, currencyValue);
+		double newValue=wallet.getCurrencyType2Value();
 		double actualValue=currencyValue+currentValue;
 		double expectedValue=newValue;
 		
