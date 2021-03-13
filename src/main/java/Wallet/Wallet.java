@@ -95,4 +95,18 @@ public class Wallet {
 		}
 		return newValue;
 	}
+
+	public double withdrawCurrency(String currencyType, double currencyValue) throws LimitExceededException {
+		double newValue=0;
+		if(currencyType==currencyType1) {
+			currencyType1Value-=currencyValue;
+			newValue=currencyType1Value;
+		}
+		else if(currencyType==currencyType2) {
+			currencyType2Value-=currencyValue;
+			newValue=currencyType2Value;
+		}
+		return newValue;
+		
+	}
 }

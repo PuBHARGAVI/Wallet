@@ -143,7 +143,6 @@ public class WalletTest {
 		}
 		
 		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
-
 	}
 	
 	@Test
@@ -161,6 +160,53 @@ public class WalletTest {
 		}
 		
 		assertEquals(expectedExceptionMessage,actualExceptionMessage);		
-
 	}
+	
+	
+	@Test
+	public void testIsSuccessfulForWithdrawingRupees(){
+		String currencyType="Rupees";
+		double currencyValue=100;
+		double expectedValue=0;
+		double currentValue=0;
+		
+		Wallet wallet=new Wallet();
+		double newValue=0;
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+			currentValue=wallet.getCurrencyType1Value();
+			wallet.withdrawCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		newValue=wallet.getCurrencyType1Value();
+		double actualValue=currentValue-currencyValue;
+		
+		assertEquals(expectedValue,actualValue,0.00001);
+	}
+	
+	@Test
+	public void testIsSuccessfulForWithdrawDollars(){
+		String currencyType="Dollars";
+		double currencyValue=1;
+		double expectedValue=0;
+		double currentValue=0;
+		
+		Wallet wallet=new Wallet();
+		double newValue=0;
+		try {
+			wallet.depositCurrency(currencyType, currencyValue);
+			currentValue=wallet.getCurrencyType2Value();
+			wallet.withdrawCurrency(currencyType, currencyValue);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		newValue=wallet.getCurrencyType2Value();
+		double actualValue=currentValue-currencyValue;
+		
+		assertEquals(expectedValue,actualValue,0.00001);	
+		}
+	
 }
