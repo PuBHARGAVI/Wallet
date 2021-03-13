@@ -54,19 +54,45 @@ public class Wallet {
 		}
 		return false;
 	}
-	
-	public void depositCurrency(String currencyType,double currencyValue) throws LimitExceededException {
+	private void checkForZeroCurrencyValueException() throws ZeroCurrencyValueException {
+        throw new ZeroCurrencyValueException("Currency value cannot be zero");
+    }
+
+    private void checkForNegativeCurrencyValueException() throws NegativeCurrencyValueException {
+    	throw new NegativeCurrencyValueException("Currency value cannot be Negative");
+    }
+	public Object depositCurrency(String currencyType,double currencyValue) throws LimitExceededException {
+		double newValue=0;
 		if(currencyValue>=Double.MAX_VALUE) {
 			if(currencyType==currencyType1)
 				throw new LimitExceededException("Total Rupees balance overflowed. Deposit unsuccessful!");
 			else if(currencyType==currencyType2)
 				throw new LimitExceededException("Total Dollars balance overflowed. Deposit unsuccessful!");
 		}
+		else if(currencyValue==0) {
+			try {
+				checkForZeroCurrencyValueException();
+			} catch (ZeroCurrencyValueException e) {
+				// TODO Auto-generated catch block
+				return e.getMessage();
+			}
+		}
+		else if(currencyValue<0) {
+			try {
+				checkForNegativeCurrencyValueException();
+			} catch (NegativeCurrencyValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if(currencyType==currencyType1) {
 			currencyType1Value+=currencyValue;
+			newValue=currencyType1Value;
 		}
 		else if(currencyType==currencyType2) {
 			currencyType2Value+=currencyValue;
+			newValue=currencyType2Value;
 		}
+		return newValue;
 	}
 }
