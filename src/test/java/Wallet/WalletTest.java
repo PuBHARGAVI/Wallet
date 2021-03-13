@@ -14,8 +14,8 @@ public class WalletTest {
 		double currencyType2Value = 1;
 		boolean expectedValue=true;
 		
-		Wallet wallet = new Wallet(currencyType1, currencyType1Value, currencyType2, currencyType2Value);		
-		boolean actualValue = wallet.compareDollarsAndRupees();
+		Wallet wallet = new Wallet();		
+		boolean actualValue = wallet.compareDollarsAndRupees(currencyType1, currencyType1Value, currencyType2, currencyType2Value);
 		
 		assertEquals(expectedValue,actualValue);
 	}
@@ -27,8 +27,8 @@ public class WalletTest {
 		double currencyType2Value = 3;
 		boolean expectedValue=true;
 		
-		Wallet wallet = new Wallet(currencyType1, currencyType1Value, currencyType2, currencyType2Value);		
-		boolean actualValue = wallet.compareDollarsAndRupees();
+		Wallet wallet = new Wallet();		
+		boolean actualValue = wallet.compareDollarsAndRupees(currencyType1, currencyType1Value, currencyType2, currencyType2Value);
 		
 		assertEquals(expectedValue,actualValue);
 	}
@@ -43,10 +43,24 @@ public class WalletTest {
 		double currencyType2Value = dollarFactor;
 		boolean expectedValue=false;
 		
-		Wallet wallet = new Wallet(currencyType1, currencyType1Value, currencyType2, currencyType2Value);		
-		boolean actualValue = wallet.compareDollarsAndRupees();
+		Wallet wallet = new Wallet();		
+		boolean actualValue = wallet.compareDollarsAndRupees(currencyType1, currencyType1Value, currencyType2, currencyType2Value);
 		
 		assertEquals(expectedValue,actualValue);
 	}
 	
+	@Test
+	public void testForDepositRupees(){
+		String currencyType="Rupees";
+		double currencyValue=100;
+		
+		Wallet wallet=new Wallet();
+		double currentValue=wallet.getCurrencyType1Value();
+		wallet.depositCurrency(currencyType, currencyValue);
+		double newValue=wallet.getCurrencyType1Value();
+		double actualValue=currencyValue+currentValue;
+		double expectedValue=newValue;
+		
+		assertEquals(expectedValue,actualValue,0.00001);
+	}
 }
