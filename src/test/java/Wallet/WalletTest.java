@@ -249,15 +249,20 @@ public class WalletTest {
 	
 	@Test
 	public void testThrowsExceptionForWithdrawDollarsWhenValueUnderflows(){
-		String currencyType="Dollars";
-		double currencyValue=2;
+		String currencyType1 = "Rupees";
+		double currencyType1Value = 74.85;
+		String currencyType2 = "Dollars";
+		double currencyType2Value = 1;
+		double currencyValue = 3;
+		
 		String expectedExceptionMessage="Less Balance. Withdraw unsuccessful!";
 		String actualExceptionMessage="";
 		
 		Wallet wallet=new Wallet();
 		try {
-			wallet.depositCurrency(currencyType, 1);
-			wallet.withdrawCurrency(currencyType, currencyValue);
+			wallet.depositCurrency(currencyType1, currencyType1Value);
+			wallet.depositCurrency(currencyType2, currencyType2Value);
+			wallet.withdrawCurrency(currencyType2, currencyValue);
 		} catch (LimitExceededException e) {
 			// TODO Auto-generated catch block
 			actualExceptionMessage=e.getMessage().toString();
