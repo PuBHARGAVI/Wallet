@@ -55,10 +55,10 @@ public class WalletTest {
 	public void testIsSuccessfulForDepositingRupees(){
 		String currencyType="Rupees";
 		double currencyValue=100;
+		double newValue=0;
 		
 		Wallet wallet=new Wallet();
 		double currentValue=wallet.getCurrencyType1Value();
-		double newValue=0;
 		try {
 			wallet.depositCurrency(currencyType, currencyValue);
 		} catch (LimitExceededException e) {
@@ -170,7 +170,6 @@ public class WalletTest {
 		String currencyType2 = "Dollars";
 		double currencyType2Value = 1;
 		double currencyValue = 100;
-		
 		double expectedType1Value=0;
 		double expectedType2Value=0.66399;
 		double actualType1Value=0;
@@ -199,7 +198,6 @@ public class WalletTest {
 		String currencyType2 = "Dollars";
 		double currencyType2Value = 1;
 		double currencyValue = 2;
-		
 		double expectedType1Value=0;
 		double expectedType2Value=0;
 		double actualType1Value=0;
@@ -228,7 +226,6 @@ public class WalletTest {
 		String currencyType2 = "Dollars";
 		double currencyType2Value = 1;
 		double currencyValue = 500;
-		
 		String expectedExceptionMessage="Less Balance. Withdraw unsuccessful!";
 		String actualExceptionMessage="";
 		
@@ -254,7 +251,6 @@ public class WalletTest {
 		String currencyType2 = "Dollars";
 		double currencyType2Value = 1;
 		double currencyValue = 3;
-		
 		String expectedExceptionMessage="Less Balance. Withdraw unsuccessful!";
 		String actualExceptionMessage="";
 		

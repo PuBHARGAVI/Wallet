@@ -46,7 +46,7 @@ public class Wallet {
 		this.currencyType1Value = currencyType1Value;
 		this.currencyType2 = currencyType2;
 		this.currencyType2Value = currencyType2Value;
-		// TODO Auto-generated method stub
+		
 		if(currencyType1=="Rupees" &&  currencyType2=="Dollars") {
 			if(currencyType1Value/74.85==currencyType2Value) {
 				return true;
@@ -73,7 +73,6 @@ public class Wallet {
 			try {
 				checkForZeroCurrencyValueException();
 			} catch (ZeroCurrencyValueException e) {
-				// TODO Auto-generated catch block
 				return e.getMessage();
 			}
 		}
@@ -81,7 +80,6 @@ public class Wallet {
 			try {
 				checkForNegativeCurrencyValueException();
 			} catch (NegativeCurrencyValueException e) {
-				// TODO Auto-generated catch block
 				return e.getMessage();
 			}
 		}
@@ -98,15 +96,11 @@ public class Wallet {
 
 	public Object withdrawCurrency(String currencyType, double currencyValue) throws LimitExceededException {
 		double newValue=0;
-//		if(currencyType==currencyType1 && currencyValue>currencyType1Value)
-//			throw new LimitExceededException("Less Rupees Balance. Withdraw unsuccessful!");
-//		else if(currencyType==currencyType2 && currencyValue>currencyType2Value)
-//			throw new LimitExceededException("Less Dollars Balance. Withdraw unsuccessful!");
+
 		if(currencyValue==0) {
 			try {
 				checkForZeroCurrencyValueException();
 			} catch (ZeroCurrencyValueException e) {
-				// TODO Auto-generated catch block
 				return e.getMessage();
 			}
 		}
@@ -114,7 +108,6 @@ public class Wallet {
 			try {
 				checkForNegativeCurrencyValueException();
 			} catch (NegativeCurrencyValueException e) {
-				// TODO Auto-generated catch block
 				return e.getMessage();
 			}
 		}
