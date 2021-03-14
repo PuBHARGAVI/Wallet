@@ -165,60 +165,78 @@ public class WalletTest {
 	
 	@Test
 	public void testIsSuccessfulForWithdrawingRupees(){
-		String currencyType="Rupees";
-		double currencyValue=100;
-		double expectedValue=0;
-		double currentValue=0;
+		String currencyType1 = "Rupees";
+		double currencyType1Value = 74.85;
+		String currencyType2 = "Dollars";
+		double currencyType2Value = 1;
+		double currencyValue = 100;
+		
+		double expectedType1Value=0;
+		double expectedType2Value=0.66399;
+		double actualType1Value=0;
+		double actualType2Value=0;
 		
 		Wallet wallet=new Wallet();
-		double newValue=0;
 		try {
-			wallet.depositCurrency(currencyType, currencyValue);
-			currentValue=wallet.getCurrencyType1Value();
-			wallet.withdrawCurrency(currencyType, currencyValue);
+			wallet.depositCurrency(currencyType1, currencyType1Value);
+			wallet.depositCurrency(currencyType2, currencyType2Value);
+			wallet.withdrawCurrency(currencyType1, currencyValue);
+			actualType1Value=wallet.getCurrencyType1Value();
+			actualType2Value=wallet.getCurrencyType2Value();
 		} catch (LimitExceededException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		newValue=wallet.getCurrencyType1Value();
-		double actualValue=currentValue-currencyValue;
 		
-		assertEquals(expectedValue,actualValue,0.00001);
+		
+		assertEquals(expectedType1Value,actualType1Value,0.00001);
+		assertEquals(expectedType2Value,actualType2Value,0.00001);
 	}
 	
 	@Test
 	public void testIsSuccessfulForWithdrawDollars(){
-		String currencyType="Dollars";
-		double currencyValue=1;
-		double expectedValue=0;
-		double currentValue=0;
+		String currencyType1 = "Rupees";
+		double currencyType1Value = 74.85;
+		String currencyType2 = "Dollars";
+		double currencyType2Value = 1;
+		double currencyValue = 2;
+		
+		double expectedType1Value=0;
+		double expectedType2Value=0;
+		double actualType1Value=0;
+		double actualType2Value=0;
 		
 		Wallet wallet=new Wallet();
-		double newValue=0;
 		try {
-			wallet.depositCurrency(currencyType, currencyValue);
-			currentValue=wallet.getCurrencyType2Value();
-			wallet.withdrawCurrency(currencyType, currencyValue);
+			wallet.depositCurrency(currencyType1, currencyType1Value);
+			wallet.depositCurrency(currencyType2, currencyType2Value);
+			wallet.withdrawCurrency(currencyType2, currencyValue);
+			actualType1Value=wallet.getCurrencyType1Value();
+			actualType2Value=wallet.getCurrencyType2Value();
 		} catch (LimitExceededException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		newValue=wallet.getCurrencyType2Value();
-		double actualValue=currentValue-currencyValue;
 		
-		assertEquals(expectedValue,actualValue,0.00001);	
+		
+		assertEquals(expectedType1Value,actualType1Value,0.00001);
+		assertEquals(expectedType2Value,actualType2Value,0.00001);
+	
 		}
 	@Test
 	public void testThrowsExceptionForWithdrawRupeesWhenValueUnderflows(){
-		String currencyType="Rupees";
-		double currencyValue=200;
-		String expectedExceptionMessage="Less Rupees Balance. Withdraw unsuccessful!";
+		String currencyType1 = "Rupees";
+		double currencyType1Value = 74.85;
+		String currencyType2 = "Dollars";
+		double currencyType2Value = 1;
+		double currencyValue = 500;
+		
+		String expectedExceptionMessage="Less Balance. Withdraw unsuccessful!";
 		String actualExceptionMessage="";
 		
 		Wallet wallet=new Wallet();
 		try {
-			wallet.depositCurrency(currencyType, 100);
-			wallet.withdrawCurrency(currencyType, currencyValue);
+			wallet.depositCurrency(currencyType1, currencyType1Value);
+			wallet.depositCurrency(currencyType2, currencyType2Value);
+			wallet.withdrawCurrency(currencyType1, currencyValue);
 		} catch (LimitExceededException e) {
 			// TODO Auto-generated catch block
 			actualExceptionMessage=e.getMessage().toString();
@@ -233,7 +251,7 @@ public class WalletTest {
 	public void testThrowsExceptionForWithdrawDollarsWhenValueUnderflows(){
 		String currencyType="Dollars";
 		double currencyValue=2;
-		String expectedExceptionMessage="Less Dollars Balance. Withdraw unsuccessful!";
+		String expectedExceptionMessage="Less Balance. Withdraw unsuccessful!";
 		String actualExceptionMessage="";
 		
 		Wallet wallet=new Wallet();

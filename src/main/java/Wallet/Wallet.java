@@ -98,11 +98,11 @@ public class Wallet {
 
 	public Object withdrawCurrency(String currencyType, double currencyValue) throws LimitExceededException {
 		double newValue=0;
-		if(currencyType==currencyType1 && currencyValue>currencyType1Value)
-			throw new LimitExceededException("Less Rupees Balance. Withdraw unsuccessful!");
-		else if(currencyType==currencyType2 && currencyValue>currencyType2Value)
-			throw new LimitExceededException("Less Dollars Balance. Withdraw unsuccessful!");
-		else if(currencyValue==0) {
+//		if(currencyType==currencyType1 && currencyValue>currencyType1Value)
+//			throw new LimitExceededException("Less Rupees Balance. Withdraw unsuccessful!");
+//		else if(currencyType==currencyType2 && currencyValue>currencyType2Value)
+//			throw new LimitExceededException("Less Dollars Balance. Withdraw unsuccessful!");
+		if(currencyValue==0) {
 			try {
 				checkForZeroCurrencyValueException();
 			} catch (ZeroCurrencyValueException e) {
@@ -118,13 +118,35 @@ public class Wallet {
 				return e.getMessage();
 			}
 		}
-		if(currencyType==currencyType1) {
-			currencyType1Value-=currencyValue;
-			newValue=currencyType1Value;
+		double totalAmount=checkBalanceForPreferredCurrencyType(currencyType);
+		if(totalAmount>=currencyValue) {
+			if(currencyType=="Rupees") {
+				if(currencyType1Value>=currencyValue) {
+					currencyType1Value-=currencyValue;
+				}
+				else {
+					currencyValue-=currencyType1Value;
+					currencyType1Value=0;
+					double totalBalance=checkBalanceForPreferredCurrencyType("Rupees");
+					double remainingBalance=totalBalance-currencyValue;
+					currencyType2Value=remainingBalance/74.85;
+				}
+			}
+			else if(currencyType=="Dollars"){
+				if(currencyType2Value>=currencyValue) {
+					currencyType2Value-=currencyValue;
+				}
+				else {
+					currencyValue-=currencyType2Value;
+					currencyType2Value=0;
+					double totalBalance=checkBalanceForPreferredCurrencyType("Dollars");
+					double remainingBalance=totalBalance-currencyValue;
+					currencyType1Value=remainingBalance*74.85;
+				}
+			}
 		}
-		else if(currencyType==currencyType2) {
-			currencyType2Value-=currencyValue;
-			newValue=currencyType2Value;
+		else {
+			throw new LimitExceededException("Less Balance. Withdraw unsuccessful!");
 		}
 		return newValue;
 		
